@@ -1,7 +1,7 @@
 ## Project Description
 
-Exercise application shows on Landing Page a list of subreddits ( fetched from popular.json api) on the left panel.
-Cliking on each of the Subreddit will populate related Posts on the main panel.
+Exercise application shows on Landing Page a list of subreddits ( fetch from popular.json api) on the left panel.
+Cliking on each of the Subreddit will populate related Posts on the main panel ( fetch from hot.json api).
 
 Each Subreddit link on left has visited color: blueviolet, active link color: black ( controlled via activeLink of React Router) 
 
