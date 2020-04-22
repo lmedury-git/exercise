@@ -9,6 +9,9 @@ Each Post has Title, Author, Post text, Thumbnail (if available).
 
 Highlighting on Post will have background color.
 
+Enter Search term on left and click submit 
+
+Posts can be switched between New and Popular views
 
 ## Installation
 
