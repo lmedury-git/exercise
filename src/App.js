@@ -12,7 +12,8 @@ class App extends Component {
     }
 
     this.fetchPosts = this.fetchPosts.bind(this);
-    
+    this.search = this.search.bind(this);
+
   }
 
   componentDidMount() {
@@ -29,8 +30,23 @@ class App extends Component {
   }
 
   fetchPosts(subr) {
+      
+   // get sort type: new or popular
+    const sortType = document.querySelector('input[name="sorttype"]:checked').value;
 
-    fetch('https://www.reddit.com/r/' + subr + '/hot.json')
+    // switch between New and Popular posts: get subreddit name when radio button is clicked
+
+    if (typeof subr === "object") {
+
+      var subreddt = [];
+
+      subreddt = this.state.posts;
+
+      subr = subreddt[0].data.subreddit;
+
+    }
+
+    fetch('https://www.reddit.com/r/' + subr + '/' + sortType + '.json')
         .then(response => response.json())
         .then(result => {
           this.setState({
@@ -38,6 +54,23 @@ class App extends Component {
         })
       });
       
+  }
+
+
+
+  search() {
+    //  call search
+    const searchTerm = document.getElementById('search-term').value;
+
+    fetch(`https://www.reddit.com/subreddits/search.json?q=${searchTerm}`)
+    .then(response => response.json())
+    .then(result => {
+          this.setState({
+           
+            subr: result.data.children,
+        })
+      })
+
   }
 
   render() {
@@ -61,6 +94,10 @@ class App extends Component {
 
                 <h2>Subreddits</h2>
 
+                <input id="search-term" name="search-term" placeholder="Enter Search term here"/>
+                
+                <button id="search" className="btn btn-primary" onClick={this.search}>Submit</button>
+
                 <ul>
 
                 { subr.map( item => (
@@ -81,6 +118,13 @@ class App extends Component {
 
                   <h2>Posts</h2>
 
+                  <input id="new" name="sorttype" value="new" defaultChecked onClick={this.fetchPosts} type="radio"/>
+                  <label> New </label>
+
+
+                  <input id="popular" name="sorttype" value="hot" onClick={this.fetchPosts} type="radio"/>
+                  <label > Popular </label>
+                 
                   <Route path="/:itemName" render={ (props) => <Subreddit posts={posts} {...props}/>} />
 
                 </div>

@@ -48,3 +48,6 @@ a:active {
 .description {
   font-size: 14px;
 }
+#search {
+  margin-top: 10px;
+}
